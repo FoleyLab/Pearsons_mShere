@@ -2,22 +2,16 @@ import time
 import numpy as np
 from numpy import sum
 from scipy.special import factorial
-from scipy.stats import hypergeom
-import matplotlib.pyplot as plt
 
-#Q1 = input('What is K?')
-#ans = int(Q1)
 
-### create arrays to store "by hand" data and "library data"
+### reads data from text file, stores to array for access later
 read_array=np.loadtxt("test1.txt")
+### opens a file to write data to  
+f = open("test_calc.txt","w")
 
-#print(read_array[5][1])
-
-#fac_n=factorial(6123, exact=True)
-t0_fac = time.time()
-#time = t1_fac - t0_fac
-#print(time)
-
+### initialize variables... doesn't really matter
+### what values you give them, they will be assigned 
+### when you loop over the entries of read_array
 N = 50
 K = 5
 n = 10
@@ -68,31 +62,17 @@ for i in range(0,len(read_array)):
         hyp_fac_2 = (fac_NK/(fac_nk*fac_a))
         hyp_fac_3 = (fac_N/(fac_n*fac_Nn))
         hyp_fac_prob = sum((hyp_fac_1*hyp_fac_2)/hyp_fac_3)
-        ### reprint the k, n, K, and N values along with hypergeometric dis. result
-        print(k, n, K, N, hyp_fac_prob)    
+        ### write the k, n, K, and N values along with hypergeometric dis. result
+        ##  to the file you opened... first save data as a single string
+        wstr = str(k)+","+str(n)+","+str(K)+","+str(N)+","+str(hyp_fac_prob)
+        ### write that string to the file
+        f.write(wstr)
+        ### make a new line in the file so the data is formatted normally
+        f.write('\n')
+    
+
+### now close the file you wrote to
+f.closed
 
 
-t1_fac = time.time()
 
-
-total_by_hand = t1_fac-t0_fac
-print(total_by_hand)
-
-#t0_lib = time.time()
-#N = 1000
-#for n in range(0,300):
-    #for k in range(n+1,500):
-        ### compute hypergeometric distribution using the library function
-	#y = np.arrange(0, n+1)
-	#prb = hypergeom.cdf(y, K, n, N)
-	#hyp_lib = hypergeom.rvs(K, n, N, size=10)
-	#print(hyp_lib)     
-	### store to variable hyp_lib
-        ### hyp_lib = (call hypergeometric distribution function here!)
-        ### store hyp_lib to the nth, kth element of your "lib" array
-        #a = n*k
-        
-#t1_lib = time.time()   
-#total_lib = t1_lib = t0_lib     
-### print out both the "by hand" array and the "library" array to confirm they agree
-### print out
