@@ -5,7 +5,7 @@ from scipy.special import factorial
 
 
 ### reads data from text file, stores to array for access later
-read_array=np.loadtxt("test1.txt")
+read_array=np.loadtxt("HS_Set.txt")
 ### opens a file to write data to  
 f = open("test_calc.txt","w")
 
